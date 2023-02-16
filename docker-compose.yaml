@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_DB: apartment_scout_db
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+            PGDATA: /var/lib/postgresql/data/pgdata
+        volumes:
+            - /var/lib/postgresql/data
+            # - db-data:/var/lib/postgresql/data
+            - ./db/bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql
+
+            - ./db/users.csv:/var/lib/postgresql/data/users.csv
+            - ./db/user_region.csv:/var/lib/postgresql/data/user_region.csv
+            - ./db/tours.csv:/var/lib/postgresql/data/tours.csv
+            - ./db/conversations.csv:/var/lib/postgresql/data/conversations.csv
+            - ./db/messages.csv:/var/lib/postgresql/data/messages.csv
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
+# volumes: 
+#     db-data: 
