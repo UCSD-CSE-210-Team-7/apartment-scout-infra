@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS Users (
     email TEXT UNIQUE NOT NULL PRIMARY KEY
     , name TEXT NOT NULL
-    , created_on TIMESTAMP NOT NULL
-    , last_login TIMESTAMP
+    , created_on TIMESTAMP NOT NULL DEFAULT NOW()
+    , last_login TIMESTAMP DEFAULT NOW()
     , is_scout BOOLEAN DEFAULT FALSE
     , is_requester BOOLEAN DEFAULT FALSE
 );
@@ -19,12 +19,12 @@ CREATE TABLE IF NOT EXISTS Tours (
     , tour_address TEXT NOT NULL
     , requested_by TEXT NOT NULL
     , scouted_by TEXT NOT NULL
-    , date_requested TIMESTAMP
+    , date_requested TIMESTAMP DEFAULT NOW()
     , date_completed TIMESTAMP
-    , status TEXT 
+    , status TEXT DEFAULT 'PLANNED'
     , tour_summary TEXT
     , tour_review_text TEXT
-    , tour_review_stars TEXT
+    , tour_review_stars INT
     , FOREIGN KEY ( requested_by ) REFERENCES Users(email)
     , FOREIGN KEY ( scouted_by ) REFERENCES Users(email)
 );
@@ -33,9 +33,8 @@ CREATE TABLE IF NOT EXISTS Conversations (
     conversation_id SERIAL PRIMARY KEY
     , person_a TEXT NOT NULL
     , person_b TEXT NOT NULL
-    -- , last_msg_id SERIAL
-    , last_msg TEXT
-    , last_msg_time TIMESTAMP
+    -- , last_msg TEXT
+    -- , last_msg_time TIMESTAMP
     , FOREIGN KEY ( person_a ) REFERENCES Users(email)
     , FOREIGN KEY ( person_b ) REFERENCES Users(email)
     -- , FOREIGN KEY ( last_msg_id ) REFERENCES Messages(msg_id)
@@ -44,7 +43,7 @@ CREATE TABLE IF NOT EXISTS Conversations (
 CREATE TABLE IF NOT EXISTS Messages (
     msg_id SERIAL PRIMARY KEY
     , msg_text TEXT NOT NULL
-    , msg_time TEXT NOT NULL
+    , msg_time TIMESTAMP NOT NULL DEFAULT NOW()
     , sender TEXT NOT NULL
     , conversation_id SERIAL NOT NULL
     , FOREIGN KEY ( sender ) REFERENCES Users(email)
@@ -66,12 +65,12 @@ COPY Tours(tour_address, requested_by, scouted_by, date_requested, date_complete
     DELIMITER ','
     CSV HEADER;
 
-COPY Conversations(conversation_id, person_a, person_b, last_msg, last_msg_time)
+COPY Conversations(conversation_id, person_a, person_b)
     FROM '/var/lib/postgresql/data/conversations.csv'
     DELIMITER ','
     CSV HEADER;
 
-COPY Messages( conversation_id, msg_text, msg_time, sender)
+COPY Messages( conversation_id, msg_text, sender)
     FROM '/var/lib/postgresql/data/messages.csv'
     DELIMITER ','
     CSV HEADER;

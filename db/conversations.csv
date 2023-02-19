@@ -1,4 +1,4 @@
-conversation_id,person_a, person_b, last_msg, last_msg_time
-1,skulkarn@ucsd.edu,maagrawa@ucsd.edu,Thanks Manasi!, 02-15-2023 10:51:00PM
-2,shs004@ucsd.edu,abokade@ucsd.edu,Thanks Ajinkya!, 02-15-2023 10:52:00PM
-3,yaz083@ucsd.edu,gnir@ucsd.edu,Thanks Guy!, 02-15-2023 10:53:00PM
+conversation_id,person_a, person_b
+1,skulkarn@ucsd.edu,maagrawa@ucsd.edu
+2,shs004@ucsd.edu,abokade@ucsd.edu
+3,yaz083@ucsd.edu,gnir@ucsd.edu

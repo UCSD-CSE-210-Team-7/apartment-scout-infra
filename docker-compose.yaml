@@ -19,6 +19,8 @@ services:
             - ./db/tours.csv:/var/lib/postgresql/data/tours.csv
             - ./db/conversations.csv:/var/lib/postgresql/data/conversations.csv
             - ./db/messages.csv:/var/lib/postgresql/data/messages.csv
+        ports:
+            - 5432:5432
     adminer:
         image: adminer
         restart: always
