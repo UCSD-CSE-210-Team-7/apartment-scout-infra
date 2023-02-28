@@ -33,11 +33,8 @@ CREATE TABLE IF NOT EXISTS Conversations (
     conversation_id SERIAL PRIMARY KEY
     , person_a TEXT NOT NULL
     , person_b TEXT NOT NULL
-    -- , last_msg TEXT
-    -- , last_msg_time TIMESTAMP
     , FOREIGN KEY ( person_a ) REFERENCES Users(email)
     , FOREIGN KEY ( person_b ) REFERENCES Users(email)
-    -- , FOREIGN KEY ( last_msg_id ) REFERENCES Messages(msg_id)
 );
 
 CREATE TABLE IF NOT EXISTS Messages (
@@ -75,3 +72,4 @@ COPY Messages( conversation_id, msg_text, sender)
     DELIMITER ','
     CSV HEADER;
 
+SELECT setval('"conversations_conversation_id_seq"', (SELECT MAX(conversation_id) FROM Conversations)+1);
