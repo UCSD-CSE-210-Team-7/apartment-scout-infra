@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS Users (
     , last_login TIMESTAMP DEFAULT NOW()
     , is_scout BOOLEAN DEFAULT FALSE
     , is_requester BOOLEAN DEFAULT FALSE
+    , calendly_link TEXT 
 );
 
 CREATE TABLE IF NOT EXISTS UserRegion (
