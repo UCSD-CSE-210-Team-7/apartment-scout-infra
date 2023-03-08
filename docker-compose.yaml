@@ -2,7 +2,9 @@ version: '3.1'
 
 services:
     db:
-        image: postgres
+        image: postgresdb
+        build : ./db
+
         restart: always
         environment:
             POSTGRES_DB: apartment_scout_db
@@ -26,5 +28,3 @@ services:
         restart: always
         ports:
             - 8080:8080
-# volumes: 
-#     db-data: 

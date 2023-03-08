@@ -4,8 +4,7 @@ CREATE TABLE IF NOT EXISTS Users (
     , created_on TIMESTAMP NOT NULL DEFAULT NOW()
     , last_login TIMESTAMP DEFAULT NOW()
     , is_scout BOOLEAN DEFAULT FALSE
-    , is_requester BOOLEAN DEFAULT FALSE
-    , calendly_link TEXT 
+    , calendly_link TEXT
 );
 
 CREATE TABLE IF NOT EXISTS UserRegion (
@@ -48,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Messages (
     , FOREIGN KEY ( conversation_id ) REFERENCES Conversations( conversation_id )
 );
 
-COPY Users(email, name, created_on, last_login, is_scout, is_requester)
+COPY Users(email, name, created_on, last_login, is_scout, calendly_link)
     FROM '/var/lib/postgresql/data/users.csv'
     DELIMITER ','
     CSV HEADER;
